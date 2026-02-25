@@ -22,7 +22,16 @@ export default function MealsOverviewScreen({ route, navigation }) {
   }, [catId, navigation]);
 
   function renderMealItem(itemData) {
-    return <MealItem meal={itemData.item} />;
+    const item = itemData.item;
+    const mealItemProps = {
+      mealId: item.id,
+      title: item.title,
+      imageUrl: item.imageUrl,
+      duration: item.duration,
+      affordability: item.affordability,
+      complexity: item.complexity,
+    };
+    return <MealItem {...mealItemProps} />;
   }
 
   return (

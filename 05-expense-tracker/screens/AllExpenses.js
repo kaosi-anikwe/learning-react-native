@@ -6,6 +6,10 @@ import ExpenseOutput from "../components/ExpensesOutput.js/ExpensesOutput";
 export default function AllExpenses() {
   const expensesCtx = useContext(ExpensesContext);
   return (
-    <ExpenseOutput expenses={expensesCtx.expenses} expensesPeriod="Total" />
+    <ExpenseOutput
+      expenses={expensesCtx.expenses}
+      expensesPeriod="Total"
+      fallbackText="No registered expenses found!"
+    />
   );
 }

@@ -9,6 +9,8 @@ export default function Map({ navigation, route }) {
   const [selectedLocation, setSelectedLocation] = useState();
   const isFocused = useIsFocused();
 
+  const readOnly = route.params?.readOnly;
+
   useEffect(() => {
     if (isFocused && route.params) {
       const mapPickedLocation = {
@@ -27,6 +29,10 @@ export default function Map({ navigation, route }) {
   };
 
   function selectLocationHandler(event) {
+    if (readOnly) {
+      return;
+    }
+
     const lat = event.nativeEvent.coordinate.latitude;
     const lng = event.nativeEvent.coordinate.longitude;
 
@@ -49,6 +55,10 @@ export default function Map({ navigation, route }) {
   }, [navigation, selectedLocation]);
 
   useLayoutEffect(() => {
+    if (readOnly) {
+      return;
+    }
+
     navigation.setOptions({
       headerRight: ({ tintColor }) => (
         <IconButton
@@ -59,7 +69,7 @@ export default function Map({ navigation, route }) {
         />
       ),
     });
-  }, [navigation, savePicedLocationHandler]);
+  }, [navigation, route, savePicedLocationHandler]);
 
   return (
     <MapView

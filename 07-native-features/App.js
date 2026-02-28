@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
+import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Map from "./screens/Map";
+import { init } from "./util/database";
 import AddPlace from "./screens/AddPlace";
 import AllPlaces from "./screens/AllPlaces";
 import { Colors } from "./constants/colors";
@@ -10,7 +13,26 @@ import IconButton from "./components/UI/IconButton";
 
 const Stack = createNativeStackNavigator();
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
+  const [dbInitialized, setDbInitialized] = useState(false);
+
+  useEffect(() => {
+    init()
+      .then(() => {
+        setDbInitialized(true);
+        SplashScreen.hide();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  if (!dbInitialized) {
+    return null;
+  }
+
   return (
     <>
       <StatusBar style="dark" />

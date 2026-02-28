@@ -2,10 +2,11 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import Map from "./screens/Map";
 import AddPlace from "./screens/AddPlace";
 import AllPlaces from "./screens/AllPlaces";
-import IconButton from "./components/UI/IconButton";
 import { Colors } from "./constants/colors";
+import IconButton from "./components/UI/IconButton";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,7 @@ export default function App() {
               title: "Add a new Place",
             }}
           />
+          <Stack.Screen name="Map" component={Map} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
